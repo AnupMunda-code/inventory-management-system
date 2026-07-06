@@ -2,10 +2,11 @@
 # Deploy this backend as a web service on Render.
 services:
   - type: web
-    name: inventory-management-system-backend
+    # Must match the existing Render service name so blueprint syncs update it
+    # in place rather than creating a duplicate.
+    name: inventory-backend
     runtime: node
     plan: free
-    region: oregon
     branch: main
     buildCommand: npm install
     startCommand: npm start
