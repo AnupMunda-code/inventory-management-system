@@ -2,9 +2,10 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import Admin from '../models/adminModel.js';
 
-
-
-// Login admin
+/**
+ * Authenticate an admin with email + password and return a signed JWT (valid 7d).
+ * Returns 401 on invalid credentials, 500 on unexpected errors.
+ */
 export const loginAdmin = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -52,6 +53,3 @@ export const loginAdmin = async (req, res) => {
     });
   }
 };
-
-
-

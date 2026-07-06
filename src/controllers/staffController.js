@@ -64,6 +64,9 @@ async function uploadStaffDocuments(files) {
       const url = await uploadDocument(file.buffer, field, file.mimetype);
       urls[field] = url;
     } catch (err) {
+      // A single failed document upload shouldn't block staff creation/update;
+      // log it and continue with the remaining fields.
+      console.error(`Failed to upload staff document "${field}":`, err.message);
     }
   }
   return urls;

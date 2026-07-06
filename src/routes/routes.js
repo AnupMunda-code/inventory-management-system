@@ -59,7 +59,7 @@ import { getAllExpenses, getExpenseById, createExpense, updateExpense, deleteExp
 import { getStockSummary, createStockSummary, getItemSales, createItemSales, getStockAging, createStockAging, getValuationReport, createValuationReport, getStockSummaryByWarehouse, getItemSalesByWarehouse, getStockAgingByWarehouse, getValuationReportByWarehouse } from '../controllers/reportController.js';
 
 // Create router instance
-export const router = express.Router();
+const router = express.Router();
 
 // ================================
 // AUTHENTICATION ROUTES

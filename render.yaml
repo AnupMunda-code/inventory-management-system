@@ -1,14 +1,21 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# Deploy this backend as a web service on Render.
 services:
   - type: web
-    name: inventory-backend
+    name: inventory-management-system-backend
     runtime: node
     plan: free
+    region: oregon
+    branch: main
     buildCommand: npm install
     startCommand: npm start
     healthCheckPath: /
     autoDeploy: true
     envVars:
-      # Secret values are NOT stored in git — enter them in the Render dashboard.
+      - key: NODE_VERSION
+        value: 20
+      # Secret values are NOT stored in git — set them in the Render dashboard
+      # (Environment tab) or via `render.yaml` env groups.
       - key: MONGO_URI
         sync: false
       - key: JWT_SECRET
@@ -18,4 +25,7 @@ services:
       - key: CLOUDINARY_API_KEY
         sync: false
       - key: CLOUDINARY_API_SECRET
+        sync: false
+      # Optional: restrict CORS to your deployed frontend origin.
+      - key: CORS_ORIGIN
         sync: false

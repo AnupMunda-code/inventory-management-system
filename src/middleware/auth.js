@@ -1,6 +1,10 @@
 import jwt from 'jsonwebtoken';
 import Admin from '../models/adminModel.js';
 
+/**
+ * Auth middleware: validates the Bearer JWT and loads the matching admin.
+ * On success attaches the admin document to req.user; otherwise responds 401.
+ */
 export const verifyToken = async (req, res, next) => {
   try {
     const token = req.header('Authorization')?.replace('Bearer ', '');
@@ -25,31 +29,9 @@ export const verifyToken = async (req, res, next) => {
     req.user = admin;
     next();
   } catch (error) {
-    return res.status(401).json({ 
-      success: false, 
-      message: 'Invalid token' 
-    });
-  }
-};
-
-export const requireAuth = (req, res, next) => {
-  const token = req.header('Authorization')?.replace('Bearer ', '');
-  
-  if (!token) {
-    return res.status(401).json({ 
-      success: false, 
-      message: 'No token provided' 
-    });
-  }
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
-    req.user = decoded;
-    next();
-  } catch (error) {
-    return res.status(401).json({ 
-      success: false, 
-      message: 'Invalid token' 
+    return res.status(401).json({
+      success: false,
+      message: 'Invalid token'
     });
   }
 };
